@@ -1,33 +1,31 @@
 import React from "react";
 import { Image, ImageBackground, StyleSheet, Text, View } from "react-native";
+import AppButton from "../components/AppButton";
 
 import colors from "../config/colors";
 
 function WelcomeScreen(props) {
   return (
-    <ImageBackground
-      style={styles.background}
-      source={require("../assets/background.jpg")}
-    >
+    <View style={styles.background}>
       <View style={styles.logoContainer}>
         <Image
           style={styles.logo}
           source={require("../assets/logo-deal.png")}
         />
-        <Text>Second Chance</Text>
+        <Text style={styles.tagline}>Second Chance</Text>
       </View>
 
       <View style={styles.buttons}>
-        <View style={styles.loginButton}></View>
-        <View style={styles.registerButton}></View>
+        <AppButton title="Login" />
+        <AppButton title="Register" color="secondary" />
       </View>
-    </ImageBackground>
+    </View>
   );
 }
 const styles = StyleSheet.create({
   background: {
+    backgroundColor: colors.white,
     flex: 1,
-    backgroundColor: colors.primary,
     justifyContent: "flex-end",
   },
   logoContainer: {
@@ -46,15 +44,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     bottom: 80,
   },
-  loginButton: {
-    width: 150,
-    height: 50,
-    backgroundColor: colors.secondary,
-  },
-  registerButton: {
-    width: 150,
-    height: 50,
-    backgroundColor: colors.secondary,
+  tagline: {
+    fontSize: 25,
+    fontWeight: "bold",
+    paddingVertical: 20,
   },
 });
 
