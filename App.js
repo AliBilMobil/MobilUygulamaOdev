@@ -4,6 +4,7 @@ import ViewImageScreen from "./app/Screens/ViewImageScreen";
 import WelcomeScreen from "./app/Screens/WelcomeScreen";
 
 export default function App() {
+  <Text> Denemeler1 </Text>
   return <ViewImageScreen />;
   <Text>Deneme</Text>;
 }
