@@ -5,17 +5,23 @@ import colors from "../config/colors";
 
 function WelcomeScreen(props) {
   return (
-    <View style={styles.background}>
+    <ImageBackground
+      style={styles.background}
+      source={require("../assets/background.jpg")}
+    >
       <View style={styles.logoContainer}>
-        <Image style={styles.logo} source={require("../assets/books.png")} />
-        <Text>Özel Ders Al</Text>
+        <Image
+          style={styles.logo}
+          source={require("../assets/logo-deal.png")}
+        />
+        <Text>Second Chance</Text>
       </View>
 
       <View style={styles.buttons}>
         <View style={styles.loginButton}></View>
         <View style={styles.registerButton}></View>
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 const styles = StyleSheet.create({
