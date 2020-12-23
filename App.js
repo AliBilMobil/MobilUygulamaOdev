@@ -1,21 +1,28 @@
-import React from "react";
-import { StyleSheet, View, Image, Text, Button } from "react-native";
+import React, { useState } from "react";
+import AppPicker from "./app/components/AppPicker";
+import AppTextInput from "./app/components/AppTextInput";
 
-import ViewImageScreen from "./app/Screens/ViewImageScreen";
-import WelcomeScreen from "./app/Screens/WelcomeScreen";
-import AppText from "./app/components/AppText";
-import { MaterialCommunityIcons } from "@expo/vector-icons";
-import AppButton from "./app/components/AppButton";
-import colors from "./app/config/colors";
-import Card from "./app/components/Card";
-import ListingDetailsScreen from "./app/Screens/ListingDetailsScreen";
-import MessagesScreen from "./app/Screens/MessagesScreen";
 import Screen from "./app/components/Screen";
-import AppIcon from "./app/components/AppIcon";
-import ListItem from "./app/components/ListItem";
-import AccountScreen from "./app/Screens/AccountScreen";
-import ListingsScreen from "./app/Screens/ListingsScreen";
+
+const categories = [
+  { label: "Furniture", value: 1 },
+  { label: "Clothing", value: 2 },
+  { label: "Cameras", value: 3 },
+];
 
 export default function App() {
-  return <ListingsScreen />;
+  const [category, setCategory] = useState(categories[0]);
+
+  return (
+    <Screen>
+      <AppPicker
+        selectedItem={category}
+        onSelectItem={(item) => setCategory(item)}
+        items={categories}
+        icon="apps"
+        placeholder="Category"
+      />
+      <AppTextInput icon="email" placeholder="Email" />
+    </Screen>
+  );
 }
