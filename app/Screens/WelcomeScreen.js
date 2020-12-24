@@ -16,8 +16,8 @@ function WelcomeScreen(props) {
       </View>
 
       <View style={styles.buttons}>
-        <AppButton title="Login" />
-        <AppButton title="Register" color="secondary" />
+        <AppButton title="Login" style={styles.button} />
+        <AppButton title="Register" color="secondary" style={styles.button} />
       </View>
     </View>
   );
@@ -27,6 +27,9 @@ const styles = StyleSheet.create({
     backgroundColor: colors.white,
     flex: 1,
     justifyContent: "flex-end",
+  },
+  button: {
+    width: 180,
   },
   logoContainer: {
     width: "100%",
