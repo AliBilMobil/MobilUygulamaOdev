@@ -8,7 +8,8 @@ import colors from "../config/colors";
 const listings = [
   {
     id: 1,
-    title: "Red jacket for sale",
+    title:
+      "aklsjdlksajdlasjdlajsldjasljaldlasjd lkasjdlkasjdklajsldkjasl jsakldjlkasdjlkasjdlkas sakldjlkasjdlsajdaklsjdlksajdlasjdlajsldjasljaldlasjd lkasjdlkasjdklajsldkjasl jsakldjlkasdjlkasjdlkas sakldjlkasjdlsajdaklsjdlksajdlasjdlajsldjasljaldlasjd lkasjdlkasjdklajsldkjasl jsakldjlkasdjlkasjdlkas sakldjlkasjdlsajd",
     price: 100,
     image: require("../assets/jacket.jpg"),
   },
