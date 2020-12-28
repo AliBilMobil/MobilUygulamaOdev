@@ -1,25 +1,42 @@
-import React from "react";
+import React, { useState } from "react";
 import { Image, StyleSheet } from "react-native";
 import * as Yup from "yup";
+import * as firebase from "firebase";
 
 import Screen from "../components/Screen";
 
-import { AppFormField, AppForm, SubmitButton } from "../components/forms";
+import {
+  ErrorMessage,
+  AppFormField,
+  AppForm,
+  SubmitButton,
+} from "../components/forms";
 
 const validationSchema = Yup.object().shape({
   email: Yup.string().required().email().label("Email"),
   password: Yup.string().required().min(4).label("Password"),
 });
 
+state = {
+  errorMessage: null,
+};
+
 function LoginScreen(props) {
+  //const [loginFailed, setLoginFailed] = useState(false);
+  const handleSubmit = async ({ email, password }) => {
+    const result = await firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password);
+  };
   return (
     <Screen style={styles.container}>
       <Image style={styles.logo} source={require("../assets/logo-deal.png")} />
       <AppForm
         initialValues={{ email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit} //Firebase e burdan gönderilecek
         validationSchema={validationSchema}
       >
+        {/* <ErrorMessage error={this.state.errorMessage} visible={loginFailed} /> */}
         <AppFormField
           autoCapitalize="none"
           autoCorrect={false}

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
+import * as firebase from "firebase";
 
 import Screen from "../components/Screen";
-
 import { AppFormField, AppForm, SubmitButton } from "../components/forms";
 
 const validationSchema = Yup.object().shape({
@@ -13,11 +13,22 @@ const validationSchema = Yup.object().shape({
 });
 
 function RegisterScreen(props) {
+  handleSubmit = ({ email, password, name }) => {
+    firebase
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .then((userCredentials) => {
+        return userCredentials.user.updateProfile({
+          displayName: name,
+        });
+      });
+  };
+
   return (
     <Screen style={styles.container}>
       <AppForm
         initialValues={{ name: "", email: "", password: "" }}
-        onSubmit={(values) => console.log(values)}
+        onSubmit={handleSubmit}
         validationSchema={validationSchema}
       >
         <AppFormField
