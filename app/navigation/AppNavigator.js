@@ -10,7 +10,7 @@ import routes from "./routes";
 
 const Tab = createBottomTabNavigator();
 
-const AppNavigator = ({ fontSize, iconSize }) => (
+const AppNavigator = ({ fontSize = 15, iconSize = 25 }) => (
   <Tab.Navigator tabBarOptions={{ labelStyle: { fontSize: fontSize } }}>
     <Tab.Screen
       name="Feed"

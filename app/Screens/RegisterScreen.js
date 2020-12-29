@@ -1,28 +1,43 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { StyleSheet } from "react-native";
 import * as Yup from "yup";
 import * as firebase from "firebase";
+import "firebase/firestore";
 
 import Screen from "../components/Screen";
 import { AppFormField, AppForm, SubmitButton } from "../components/forms";
+import AuthContext from "../auth/context";
+import { registeration } from "../api/firebaseMethod";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required().label("Name"),
   email: Yup.string().required().email().label("Email"),
-  password: Yup.string().required().min(4).label("Password"),
+  password: Yup.string().required().min(6).label("Password"),
 });
 
 function RegisterScreen(props) {
-  handleSubmit = ({ email, password, name }) => {
-    firebase
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
-      .then((userCredentials) => {
-        return userCredentials.user.updateProfile({
-          displayName: name,
-        });
-      });
+  const authContext = useContext(AuthContext);
+  const handleSubmit = async ({ email, password, name }) => {
+    //registeration(email, password, name);
+    await firebase.auth().createUserWithEmailAndPassword(email, password);
+    const currentUser = firebase.auth().currentUser;
+    authContext.setUser(currentUser);
+
+    const db = firebase.firestore();
+    db.collection("users").doc(currentUser.uid).set({
+      email: currentUser.email,
+      userName: name,
+    });
   };
+  /* handleSubmit = ({ email, password, userName }) => {
+    firebase.auth().createUserWithEmailAndPassword(email, password);
+    const user = firebase.auth().currentUser;
+    const db = firebase.firestore();
+    db.collection("users").doc(user.uid).set({
+      email: user.email,
+      userName: userName,
+    });
+  }; */
 
   return (
     <Screen style={styles.container}>

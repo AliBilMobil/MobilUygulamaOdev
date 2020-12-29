@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import * as firebase from "firebase";
+import AppLoading from "expo-app-loading";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import NetInfo, { useNetInfo } from "@react-native-community/netinfo";
@@ -9,26 +10,34 @@ import { NavigationContainer } from "@react-navigation/native";
 import AppNavigator from "./app/navigation/AppNavigator";
 import OfflineNotice from "./app/components/OfflineNotice";
 import AuthNavigator from "./app/navigation/AuthNavigator";
-
-const firebaseConfig = {
-  apiKey: "AIzaSyBksZZ9kMWd_Kbwfl1pwIoUFoMXmJSk6s8",
-  authDomain: "secondchance-4f4f2.firebaseapp.com",
-  projectId: "secondchance-4f4f2",
-  storageBucket: "secondchance-4f4f2.appspot.com",
-  messagingSenderId: "877024988726",
-  appId: "1:877024988726:web:3f135158e9fd871829d297",
-  measurementId: "G-FM6PLZ42GM",
-};
+import AuthContext from "./app/auth/context";
+import apiKeys from "./app/config/keys";
+import authStorage from "./app/auth/authStorage";
 
 export default function App() {
-  firebase.initializeApp(firebaseConfig);
+  //const [isReady, setIsReady] = useState(false);
+  if (!firebase.apps.length) {
+    console.log("Connected with Firebase");
+    firebase.initializeApp(apiKeys.firebaseConfig);
+  }
+  const [user, setUser] = useState();
+
+  /* const restoreUser = async () => {
+    const user = await authStorage.getUser();
+    if (!user) setUser(user);
+  };
+
+  if (!isReady)
+    return (
+      <AppLoading startAsync={restoreUser} onFinish={() => setIsReady(true)} />
+    ); */
 
   return (
-    <>
+    <AuthContext.Provider value={{ user, setUser }}>
       <OfflineNotice />
       <NavigationContainer theme={navigationTheme}>
-        <AuthNavigator />
+        {user ? <AppNavigator /> : <AuthNavigator />}
       </NavigationContainer>
-    </>
+    </AuthContext.Provider>
   );
 }

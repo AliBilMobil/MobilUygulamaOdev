@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { FlatList, StyleSheet } from "react-native";
+import * as firebase from "firebase";
 
 import ActivityIndicator from "../components/ActivityIndicator";
 import Card from "../components/Card";

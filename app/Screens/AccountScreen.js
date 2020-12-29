@@ -1,11 +1,16 @@
-import React from "react";
-import { StyleSheet, View, FlatList } from "react-native";
+import React, { useEffect, useState } from "react";
+import { StyleSheet, View, FlatList, Alert } from "react-native";
+import * as firebase from "firebase";
+
+import { loggingOut } from "../api/firebaseMethod";
+import AuthContext from "../auth/context";
 import AppIcon from "../components/AppIcon";
 
 import { ListItem, ListItemSeperator } from "../components/lists";
 import Screen from "../components/Screen";
 import colors from "../config/colors";
 import routes from "../navigation/routes";
+import useAuth from "../auth/useAuth";
 
 const menuItems = [
   {
@@ -26,13 +31,41 @@ const menuItems = [
 ];
 
 function AccountScreen({ navigation }) {
+  //const idTokenResult = authStorage.getToken();
+  //console.log(idTokenResult.token);
+  //const jwtuser = jwtDecode(idTokenResult.token);
+  //console.log(jwtuser);
+  //const currentUserUID = user.user_id;
+  const { user, logOut } = useAuth();
+  let currentUserUID = firebase.auth().currentUser.uid;
+  const [name, setName] = useState("");
+  //console.log(user.sub);
+
+  useEffect(() => {
+    async function getUserInfo() {
+      let doc = await firebase
+        .firestore()
+        .collection("users")
+        .doc(currentUserUID)
+        .get();
+
+      if (!doc.exists) {
+        Alert.alert("No user data found!");
+      } else {
+        let dataObj = doc.data();
+        setName(dataObj.userName);
+      }
+    }
+    getUserInfo();
+  });
+
   return (
     <Screen style={styles.screen}>
       <View style={styles.container}>
         <ListItem
-          title="Ali Kerem ÖCAL"
-          subTitle="alikeremocal@gmail.com"
-          image={require("../assets/mosh.jpg")}
+          title={name}
+          subTitle={user.email}
+          image={require("../assets/cat.jpg")}
         />
       </View>
       <View style={styles.container}>
@@ -59,6 +92,7 @@ function AccountScreen({ navigation }) {
         title={"Log Out"}
         IconComponent={<AppIcon name="logout" backgroundColor="#ffe66d" />}
         showChevrons={true}
+        onPress={() => logOut()}
       />
     </Screen>
   );
