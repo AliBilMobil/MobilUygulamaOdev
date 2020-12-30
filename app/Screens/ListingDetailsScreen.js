@@ -1,12 +1,24 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { View, StyleSheet } from "react-native";
 import { Image } from "react-native-expo-image-cache";
+import * as Notifications from "expo-notifications";
+import * as firebase from "firebase";
 
 import ListItem from "../components/lists/ListItem";
 import AppText from "../components/AppText";
 import colors from "../config/colors";
+import AppButton from "../components/AppButton";
 
 function ListingDetailsScreen({ route }) {
+  const showNotification = () => {
+    Notifications.presentNotificationAsync({
+      title: "Congratulations",
+      body: "Your order successfully placed!",
+      data: {
+        _displayInForeground: true,
+      },
+    });
+  };
   const listing = route.params;
   return (
     <View>
@@ -21,11 +33,12 @@ function ListingDetailsScreen({ route }) {
         <AppText style={styles.price}>$ {listing.price} </AppText>
         <View style={styles.userContainer}>
           <ListItem
-            image={require("../assets/mosh.jpg")}
-            title="Mosh Hamedani"
+            image={require("../assets/cat.jpg")}
+            title="Bilge"
             subTitle="5 Listings"
             showChevrons={true}
           />
+          <AppButton title="Order" onPress={showNotification} />
         </View>
       </View>
     </View>

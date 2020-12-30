@@ -12,6 +12,7 @@ export async function registeration(email, password, userName) {
     db.collection("users").doc(currentUser.uid).set({
       email: currentUser.email,
       userName: userName,
+      notificationToken: "",
     });
   } catch (error) {
     Alert.alert("There is something wrong!", error.message);

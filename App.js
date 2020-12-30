@@ -13,6 +13,7 @@ import AuthNavigator from "./app/navigation/AuthNavigator";
 import AuthContext from "./app/auth/context";
 import apiKeys from "./app/config/keys";
 import authStorage from "./app/auth/authStorage";
+import DrawerNavigator from "./app/navigation/DrawerNavigator";
 
 export default function App() {
   //const [isReady, setIsReady] = useState(false);
@@ -36,7 +37,7 @@ export default function App() {
     <AuthContext.Provider value={{ user, setUser }}>
       <OfflineNotice />
       <NavigationContainer theme={navigationTheme}>
-        {user ? <AppNavigator /> : <AuthNavigator />}
+        {user ? <AppNavigator /> : <DrawerNavigator />}
       </NavigationContainer>
     </AuthContext.Provider>
   );
