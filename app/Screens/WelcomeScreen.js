@@ -7,12 +7,12 @@ import routes from "../navigation/routes";
 
 function WelcomeScreen({ navigation }) {
   return (
-    <View style={styles.background}>
+    <ImageBackground
+      style={styles.background}
+      source={require("../assets/background1.jpg")}
+    >
       <View style={styles.logoContainer}>
-        <Image
-          style={styles.logo}
-          source={require("../assets/logo-deal.png")}
-        />
+        <Image style={styles.logo} source={require("../assets/deal_2.png")} />
         <Text style={styles.tagline}>Second Chance</Text>
       </View>
 
@@ -29,22 +29,23 @@ function WelcomeScreen({ navigation }) {
           onPress={() => navigation.navigate(routes.REGISTER)}
         />
       </View>
-    </View>
+    </ImageBackground>
   );
 }
 const styles = StyleSheet.create({
   background: {
-    backgroundColor: colors.white,
+    // backgroundColor: colors.white,
     flex: 1,
     justifyContent: "flex-end",
   },
   button: {
-    width: 180,
+    marginTop: 10,
+    //width: 180,
   },
   logoContainer: {
     width: "100%",
     position: "absolute",
-    top: 70,
+    top: 220,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -53,14 +54,18 @@ const styles = StyleSheet.create({
     height: 100,
   },
   buttons: {
-    flexDirection: "row",
-    justifyContent: "space-around",
+    padding: 20,
+    width: "100%",
+    //flexDirection: "row",
+    //justifyContent: "space-around",
     bottom: 80,
   },
   tagline: {
-    fontSize: 25,
-    fontWeight: "bold",
+    fontSize: 35,
+    fontFamily: "monospace",
+    fontWeight: "700",
     paddingVertical: 20,
+    color: colors.primary,
   },
 });
 
